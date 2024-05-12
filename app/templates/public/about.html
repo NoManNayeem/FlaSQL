@@ -1,0 +1,44 @@
+{% extends "public/base.html" %}
+
+{% block head %}
+<!-- Include any additional stylesheets or scripts here -->
+<style>
+    .social-button {
+        font-size: 1rem; /* Button text size */
+        border-radius: 0.25rem; /* Button border radius */
+        transition: background-color 0.3s; /* Smooth transition for background color */
+    }
+    .social-button:hover {
+        color: #fff; /* White text on hover */
+        background-color: #007bff; /* Blue background on hover */
+    }
+</style>
+{% endblock %}
+
+{% block title %}Tech Maestro{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <img src="https://avatars.githubusercontent.com/u/60138887?v=4" alt="Developer Profile" class="img-fluid rounded-circle" style="max-width: 200px;">
+            <h1 class="mt-4">Nayeem Islam</h1>
+            <p class="text-muted">Project Lead | Software Engineer | Generative AI and Telco Expert</p>
+            <p>I am passionate about building impactful technology solutions and have a proven track record of developing high-quality software.</p>
+            <p class="text-nowrap bd-highlight">Explore my work and insights through the following platforms:</p>
+            
+            <div class="d-flex justify-content-center gap-3 mt-4">
+                <a href="https://github.com/NoManNayeem/" class="btn btn-outline-secondary social-button">
+                    <i class="bi bi-github"></i> GitHub
+                </a>
+                <a href="https://medium.com/@nomannayeem/" class="btn btn-outline-secondary social-button">
+                    <i class="bi bi-medium"></i> Medium
+                </a>
+                <a href="https://bd.linkedin.com/in/nayeemislam60053" class="btn btn-outline-secondary social-button">
+                    <i class="bi bi-linkedin"></i> LinkedIn
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

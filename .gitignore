@@ -1,0 +1,33 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.env
+
+# Instance folder
+instance/
+
+# Pytest
+.cache
+.pytest_cache/
+
+# Database
+*.db
+*.sqlite3
+migrations/
+
+# Flask stuff
+.flaskenv
+.secret_key
+
+# If you are using JetBrains/PyCharm, add:
+.idea/
+
+# If you are using Visual Studio Code, add:
+.vscode/
+
+# macOS specific
+.DS_Store
