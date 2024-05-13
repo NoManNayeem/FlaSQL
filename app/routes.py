@@ -1,6 +1,5 @@
 from flask import flash, render_template, redirect, url_for, flash, Blueprint, request
 from flask_login import login_user, logout_user, login_required, current_user
-from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
 from .forms import RegistrationForm, LoginForm
 from .models import User
@@ -10,13 +9,8 @@ main = Blueprint('main', __name__)
 @main.route('/')
 def index():
     if current_user.is_authenticated:
-        # Redirect to the dashboard page if the user is logged in
         return redirect(url_for('main.dashboard'))
-    # Render the landing page if the user is not logged in
     return render_template('public/landing.html')
-
-from flask import render_template
-from flask_login import login_required
 
 @main.route('/dashboard')
 @login_required
@@ -45,27 +39,27 @@ def dashboard():
                            line_chart_data=line_chart_data,
                            doughnut_chart_data=doughnut_chart_data)
 
-
-
 @main.route('/about')
 def about():
-    # Ensure you have a 'dashboard.html' template
     return render_template('public/about.html')
+
 
 @main.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
-
     form = RegistrationForm()
     if form.validate_on_submit():
-        hashed_password = generate_password_hash(form.password.data, method='pbkdf2:sha256')
-        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
+        # Use the password setter of the User model
+        user = User(username=form.username.data, email=form.email.data)
+        user.password = form.password.data  # This automatically hashes the password
         db.session.add(user)
         db.session.commit()
         flash('Your account has been created! You can now log in.', 'success')
         return redirect(url_for('main.login'))
     return render_template('public/register.html', title='Register', form=form)
+
+
 
 @main.route('/login', methods=['GET', 'POST'])
 def login():
@@ -75,7 +69,7 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
-        if user and user.verify_password(form.password.data):  # Assuming verify_password method exists in User model
+        if user and user.verify_password(form.password.data):  # Now using verify_password method
             login_user(user, remember=form.remember.data)
             next_page = request.args.get('next', None)  # Default to None if 'next' not present in URL
             if next_page:
@@ -95,5 +89,5 @@ def logout():
 
 @main.app_errorhandler(404)
 def page_not_found(e):
-    # note that we set the 404 status explicitly
+    # Note that we set the 404 status explicitly
     return render_template('public/404.html'), 404

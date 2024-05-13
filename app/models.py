@@ -1,11 +1,17 @@
-from . import db, bcrypt
 from flask_login import UserMixin
+from datetime import datetime
+from . import db
+from werkzeug.security import generate_password_hash, check_password_hash
 
-class User(UserMixin, db.Model):
+class User(db.Model, UserMixin):  # Include UserMixin here
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password_hash = db.Column(db.String(128))
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    _password = db.Column('password', db.String(200), nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    last_login = db.Column(db.DateTime)
+    is_admin = db.Column(db.Boolean, default=False)
+    is_confirmed = db.Column(db.Boolean, default=False)
 
     @property
     def password(self):
@@ -13,10 +19,10 @@ class User(UserMixin, db.Model):
 
     @password.setter
     def password(self, password):
-        self.password_hash = bcrypt.generate_password_hash(password).decode('utf-8')
+        self._password = generate_password_hash(password)
 
     def verify_password(self, password):
-        return bcrypt.check_password_hash(self.password_hash, password)
+        return check_password_hash(self._password, password)
 
     def __repr__(self):
         return f'<User {self.username}>'
