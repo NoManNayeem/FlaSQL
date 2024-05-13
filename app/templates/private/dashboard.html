@@ -13,8 +13,8 @@
             <table class="table table-bordered table-hover table-striped table-dark text-center">
                 <tbody>
                     <tr>
-                        <th>Dashboard</th>
-                        <td>Server Dashboard - {{ server_metrics['ServerName'] }}</td>
+                        <th>Server Name</th>
+                        <td>{{ server_metrics['ServerName'] }}</td>
                     </tr>
                     <tr>
                         <th>Edition</th>
@@ -22,7 +22,7 @@
                     </tr>
                     <tr>
                         <th>Version</th>
-                        <td>Version {{ server_metrics['ServerVersion'] }}</td>
+                        <td>{{ server_metrics['ServerVersion'] }}</td>
                     </tr>
                 </tbody>
             </table>
