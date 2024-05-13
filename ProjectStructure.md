@@ -1,7 +1,5 @@
 # Project Structure
 
-```bash
-
 # FlaSQL Project Structure
 
 The FlaSQL project is organized as follows:
@@ -38,5 +36,3 @@ The FlaSQL project is organized as follows:
 - `requirements.txt` - Specifies the Python dependencies of the project.
 - `run.py` - The entry point to start the application.
 
-
-```
