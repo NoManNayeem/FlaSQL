@@ -4,7 +4,6 @@ from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 from flask_migrate import Migrate
 from flask_wtf import CSRFProtect
-import os
 
 # Initialize the database
 db = SQLAlchemy()
@@ -19,9 +18,9 @@ bcrypt = Bcrypt()
 def create_app() -> Flask:
     app = Flask(__name__)
 
-    # Configure the app from environment variables or use defaults
-    app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'my_top_secret_key')
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///flasql.db')
+    # Configuration
+    app.config['SECRET_KEY'] = 'my_top_secret_key'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///flasql.sqlite3'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     # Initialize plugins with the app
@@ -45,4 +44,3 @@ def create_app() -> Flask:
         return User.query.get(int(user_id))
 
     return app
-
