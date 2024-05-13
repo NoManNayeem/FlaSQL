@@ -13,7 +13,8 @@ Follow these steps to get your development environment set up:
 1. **Create and activate a Python virtual environment:**
    ```bash
    python -m venv venv
-   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+   source venv/bin/activate  # On Windows use 
+   `venv\Scripts\activate`
    ```
 
 2. **Change directory to the root of the project:**
