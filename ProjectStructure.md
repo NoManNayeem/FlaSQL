@@ -1,5 +1,3 @@
-# Project Structure
-
 # FlaSQL Project Structure
 
 The FlaSQL project is organized as follows:

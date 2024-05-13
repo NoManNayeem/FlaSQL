@@ -66,6 +66,15 @@ Alternatively, you can manually provide values for:
 For more details on the project structure, see the [Project Structure](./ProjectStructure.md) document.
 
 
+
+## Project Features
+For more details on the project features, see the [Project Features](./Features.md) document.
+
+
+## Visualization Ideas
+For more details on the project UI, see the [Project Visualization Ideas](./VisualizationSuggestion.md) document.
+
+
 ## Screenshots
 
 Here are some visuals of the FlaSQL application in action:
