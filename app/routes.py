@@ -3,6 +3,9 @@ from flask_login import login_user, logout_user, login_required, current_user
 from . import db
 from .forms import RegistrationForm, LoginForm
 from .models import User
+from .utils.dbInfo import get_server_metrics
+
+
 
 main = Blueprint('main', __name__)
 
@@ -15,29 +18,18 @@ def index():
 @main.route('/dashboard')
 @login_required
 def dashboard():
-    # Dummy data for the statistics cards
-    stats = {
-        'user_count': '10k+',
-        'revenue': '$550K',
-        'alerts': '5 Critical'
-    }
+    # Fetch server metrics
+    server_metrics = get_server_metrics()
 
-    # Dummy data for charts
-    line_chart_data = {
-        'labels': ['January', 'February', 'March', 'April', 'May'],
-        'data': [1200, 1900, 1700, 2200, 2500]
-    }
+    print("----------------Server Metrics----------------")
+    print(server_metrics)
+    print("----------------Server Metrics----------------")
+    # Pass the server metrics data to the template
+    return render_template('private/dashboard.html', server_metrics=server_metrics)
 
-    doughnut_chart_data = {
-        'labels': ['Red', 'Blue', 'Yellow'],
-        'data': [50, 30, 20]
-    }
 
-    # Pass the data to the template
-    return render_template('private/dashboard.html',
-                           stats=stats,
-                           line_chart_data=line_chart_data,
-                           doughnut_chart_data=doughnut_chart_data)
+
+
 
 @main.route('/about')
 def about():

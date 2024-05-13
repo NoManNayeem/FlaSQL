@@ -1,109 +1,92 @@
 {% extends "private/private_base.html" %}
-
 {% block content %}
-<div class="container mt-4">
-    <!-- Statistics Cards with enhanced UI -->
+
+
+
+<div class="container mt-3">
+    
+    <button class="btn btn-outline-info mb-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        Server Info
+    </button>
+    <div class="collapse" id="collapseExample">
+        <div class="card card-body mb-4">
+            <table class="table table-bordered table-hover table-striped table-dark text-center">
+                <tbody>
+                    <tr>
+                        <th>Dashboard</th>
+                        <td>Server Dashboard - {{ server_metrics['ServerName'] }}</td>
+                    </tr>
+                    <tr>
+                        <th>Edition</th>
+                        <td>{{ server_metrics['ServerEdition'] }}</td>
+                    </tr>
+                    <tr>
+                        <th>Version</th>
+                        <td>Version {{ server_metrics['ServerVersion'] }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+
     <div class="row">
-        <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card text-white bg-primary shadow">
-                <div class="card-header">Users <i class="bi bi-people-fill"></i></div>
-                <div class="card-body border-top border-light">
-                    <h5 class="card-title">{{ stats.user_count }}</h5>
-                    <p class="card-text">Number of users in the system.</p>
+        <!-- Disk Space Details -->
+        {% for disk in server_metrics.get('DiskSpace', []) %}
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <i class="bi bi-hdd-stack-fill"></i> {{ disk.DatabaseName | default('Unknown Database', true) }}
+                </div>
+                <div class="card-body">
+                    <h5>Total: {{ disk.TotalSpaceMB }} MB</h5>
+                    <h5>Free: {{ disk.EmptySpaceMB | default('Unknown', true) }} MB</h5>
+                    {% if disk.EmptySpaceMB is not none %}
+                    {% set used_percent = 100 - (disk.EmptySpaceMB / disk.TotalSpaceMB * 100) %}
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: {{ used_percent }}%" aria-valuenow="{{ used_percent }}" aria-valuemin="0" aria-valuemax="100">{{ used_percent|round|int }}%</div>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card text-white bg-success shadow">
-                <div class="card-header">Revenue <i class="bi bi-currency-dollar"></i></div>
-                <div class="card-body border-top border-light">
-                    <h5 class="card-title">{{ stats.revenue }}</h5>
-                    <p class="card-text">Revenue generated this month.</p>
+        {% endfor %}
+    </div>
+
+    <div class="row">
+        <!-- Database Connections -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <i class="bi bi-people-fill"></i> Database Connections
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        {% for connection in server_metrics.get('DatabaseConnections', []) %}
+                        <li class="list-group-item">
+                            {{ connection.DatabaseName | default('General', true) }}: {{ connection.NumberOfConnections }} connections
+                        </li>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card text-white bg-danger shadow">
-                <div class="card-header">Alerts <i class="bi bi-exclamation-triangle-fill"></i></div>
-                <div class="card-body border-top border-light">
-                    <h5 class="card-title">{{ stats.alerts }}</h5>
-                    <p class="card-text">Outstanding system alerts.</p>
+        <!-- Network Traffic -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <i class="bi bi-graph-up"></i> Network Traffic
+                </div>
+                <div class="card-body">
+                    <p><strong>Reads:</strong> {{ server_metrics.NetworkTraffic.TotalReads }} operations</p>
+                    <p><strong>Writes:</strong> {{ server_metrics.NetworkTraffic.TotalWrites }} operations</p>
+                    <div class="progress">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: {{ (server_metrics.NetworkTraffic.TotalReads / (server_metrics.NetworkTraffic.TotalReads + server_metrics.NetworkTraffic.TotalWrites) * 100)|round|int }}%" aria-valuenow="{{ server_metrics.NetworkTraffic.TotalReads }}" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Charts -->
-    <div class="row">
-        <div class="col-md-6 d-flex align-items-stretch">
-            <div class="shadow p-3 mb-5 bg-body rounded flex-fill d-flex">
-                <canvas id="lineChart" class="w-100"></canvas>
-            </div>
-        </div>
-        <div class="col-md-6 d-flex align-items-stretch">
-            <div class="shadow p-3 mb-5 bg-body rounded flex-fill d-flex">
-                <canvas id="doughnutChart" class="w-100"></canvas>
-            </div>
-        </div>
-    </div>
-
 </div>
-{% endblock %}
 
-{% block scripts %}
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const chartOptions = {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-            y: {
-                beginAtZero: true
-            }
-        }
-    };
-
-    var lineChartCanvas = document.getElementById('lineChart').getContext('2d');
-    var doughnutChartCanvas = document.getElementById('doughnutChart').getContext('2d');
-
-    var lineChart = new Chart(lineChartCanvas, {
-        type: 'line',
-        data: {
-            labels: {{ line_chart_data.labels | tojson }},
-            datasets: [{
-                label: 'Monthly Revenue',
-                data: {{ line_chart_data.data | tojson }},
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: chartOptions
-    });
-
-    var doughnutChart = new Chart(doughnutChartCanvas, {
-        type: 'doughnut',
-        data: {
-            labels: {{ doughnut_chart_data.labels | tojson }},
-            datasets: [{
-                label: 'Color Distribution',
-                data: {{ doughnut_chart_data.data | tojson }},
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: chartOptions
-    });
-});
-</script>
 {% endblock %}
