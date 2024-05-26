@@ -13,7 +13,12 @@ Follow these steps to get your development environment set up:
 1. **Create and activate a Python virtual environment:**
    ```bash
    python -m venv venv
-   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
+
+   # On Linux use
+   source venv/bin/activate  
+   
+   # On Windows use 
+   venv\Scripts\activate
    ```
 
 2. **Change directory to the root of the project:**
@@ -64,6 +69,15 @@ Alternatively, you can manually provide values for:
 
 ## Project Structure
 For more details on the project structure, see the [Project Structure](./ProjectStructure.md) document.
+
+
+
+## Project Features
+For more details on the project features, see the [Project Features](./Features.md) document.
+
+
+## Visualization Ideas
+For more details on the project UI, see the [Project Visualization Ideas](./VisualizationSuggestion.md) document.
 
 
 ## Screenshots
