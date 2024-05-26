@@ -3,14 +3,36 @@
 {% block head %}
 <!-- Include any additional stylesheets or scripts here -->
 <style>
+    .profile-img {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        transition: transform 0.3s ease-in-out;
+    }
+    .profile-img:hover {
+        transform: scale(1.1);
+    }
     .social-button {
         font-size: 1rem; /* Button text size */
         border-radius: 0.25rem; /* Button border radius */
-        transition: background-color 0.3s; /* Smooth transition for background color */
+        transition: background-color 0.3s, transform 0.3s; /* Smooth transition for background color and transform */
     }
     .social-button:hover {
         color: #fff; /* White text on hover */
         background-color: #007bff; /* Blue background on hover */
+        transform: translateY(-3px); /* Slightly raise the button on hover */
+    }
+    .fade-in {
+        opacity: 0;
+        animation: fadeIn 2s ease-in-out forwards;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    .bg-gradient {
+        background: linear-gradient(135deg, #6e8efb, #a777e3);
+        color: white;
     }
 </style>
 {% endblock %}
@@ -18,10 +40,10 @@
 {% block title %}Tech Maestro{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
+<div class="container mt-5 mb-5 fade-in">
     <div class="row justify-content-center">
         <div class="col-md-8 text-center">
-            <img src="https://avatars.githubusercontent.com/u/60138887?v=4" alt="Developer Profile" class="img-fluid rounded-circle" style="max-width: 200px;">
+            <img src="https://avatars.githubusercontent.com/u/60138887?v=4" alt="Developer Profile" class="img-fluid rounded-circle profile-img">
             <h1 class="mt-4">Nayeem Islam</h1>
             <p class="text-muted">Project Lead | Software Engineer | Generative AI and Telco Expert</p>
             <p>I am passionate about building impactful technology solutions and have a proven track record of developing high-quality software.</p>

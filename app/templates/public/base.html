@@ -5,11 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}FlaSQL{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    {% block head %}
+    <!-- head will go here -->
+    {% endblock %}
     <style>
         body, html {
-            height: 100%; /* Ensures the minimum height of the html and body is 100% of the viewport */
+            height: 100%;
             margin: 0;
             padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f5f5;
+            
         }
         #wrapper {
             min-height: 100%;
@@ -17,47 +24,124 @@
             flex-direction: column;
         }
         #content-wrap {
-            flex: 1; /* Allows the content area to expand and fill available space excluding footer */
-            padding-top: 60px; /* To avoid overlap with the fixed navbar */
+            flex: 1;
+            padding-top: 80px;
         }
         footer {
-            height: 50px; /* Fixed height for footer */
-            line-height: 50px; /* Vertically center the text inside the footer */
+            height: 60px;
+            line-height: 60px;
+            background-color: #212529;
+            color: #ffffff;
         }
         .hero-section {
-            padding: 100px 0;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://cdn.pixabay.com/photo/2014/09/20/13/52/board-453758_1280.jpg');
+            padding: 120px 0;
+            background: linear-gradient(rgba(34, 193, 195, 0.6), rgba(253, 187, 45, 0.6)), url('https://images.unsplash.com/photo-1667372283587-e1557c08aca4?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
             background-size: cover;
             background-position: center;
             color: white;
+            text-align: center;
+            animation: fadeIn 2s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .hero-section h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .hero-section p {
+            font-size: 1.25rem;
+            font-weight: 300;
         }
         .feature-icon {
-            font-size: 50px;
+            font-size: 60px;
+            color: #007bff;
+            margin-bottom: 20px;
+            transition: transform 0.3s, color 0.3s;
+        }
+        .feature-icon:hover {
+            transform: scale(1.2);
+            color: #0056b3;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .navbar {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .nav-link {
+            margin-right: 15px;
+            transition: color 0.3s;
+        }
+        .nav-link:hover {
             color: #007bff;
         }
+        .container {
+            max-width: 1200px;
+        }
+        .text-gradient {
+            background: linear-gradient(45deg, #34c1c3, #fdbb2d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: background 0.3s, -webkit-text-fill-color 0.3s;
+        }
+        .text-gradient-nohover {
+            background: linear-gradient(45deg, #34c1c3, #fdbb2d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: background 0.3s, -webkit-text-fill-color 0.3s;
+        }
+        
+        .text-gradient:hover {
+            background: linear-gradient(45deg, #34c1c3, #fdbb2d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transform: scale(1.20);
+        }
+        
+        .gradient-btn {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .gradient-btn:hover {
+            background: linear-gradient(135deg, #f5576c, #f093fb);
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        
     </style>
 </head>
 <body>
     <div id="wrapper">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
             <div class="container">
-                <a class="navbar-brand" href="{{ url_for('main.index') }}">FlaSQL</a>
+                <a class="navbar-brand text-gradient" href="{{ url_for('main.index') }}"><i class="bi bi-database"></i> FlaSQL</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
-                        <!-- <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ url_for('main.index') }}">Home</a>
-                        </li> -->
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('main.about') }}">About</a>
+                            <a class="nav-link text-gradient hover:text-white" href="{{ url_for('main.about') }}"><i class="bi bi-info-circle"></i> About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('main.register') }}">Register</a>
+                            <a class="nav-link text-gradient hover:text-white" href="{{ url_for('main.register') }}"><i class="bi bi-person-plus"></i> Register</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('main.login') }}">Login</a>
+                            <a class="nav-link text-gradient hover:text-white" href="{{ url_for('main.login') }}"><i class="bi bi-box-arrow-in-right"></i> Login</a>
                         </li>
                     </ul>
                 </div>
@@ -70,8 +154,8 @@
             {% endblock %}
         </div>
 
-        <footer class="bg-dark text-light text-center">
-            <div class="container">
+        <footer class="text-center">
+            <div class="container text-gradient-nohover">
                 <p>FlaSQL © 2024. All rights reserved.</p>
             </div>
         </footer>
