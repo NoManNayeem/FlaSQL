@@ -1,146 +1,146 @@
 <div class="sidebar bg-dark vh-100 p-3" id="sidebar">
-    <h3 class="text-center text-light mb-4">Menu</h3>
-    <div class="list-group sidebar-content">
-        <a class="list-group-item list-group-item-action bg-primary text-light" href="{{ url_for('main.dashboard') }}">
-            <i class="bi bi-house-door-fill"></i> Dashboard
-        </a>
-        <a class="list-group-item list-group-item-action bg-success text-light" href="#database-status">
-            <i class="bi bi-database-fill"></i> Database Status
-        </a>
-        <a class="list-group-item list-group-item-action bg-info text-light" href="#disk-space-monitoring">
-            <i class="bi bi-hdd-fill"></i> Disk Space Monitoring
-        </a>
-        <a class="list-group-item list-group-item-action bg-warning text-light" href="#backup-status">
-            <i class="bi bi-save-fill"></i> Backup Status
-        </a>
-        <a class="list-group-item list-group-item-action bg-danger text-light" href="#sql-server-services">
-            <i class="bi bi-server"></i> SQL Server Services
-        </a>
-        <a class="list-group-item list-group-item-action bg-secondary text-light" href="#error-logs">
-            <i class="bi bi-file-earmark-x-fill"></i> Error Logs
-        </a>
-        <a class="list-group-item list-group-item-action bg-dark text-light" href="#configuration-settings">
-            <i class="bi bi-gear-fill"></i> Configuration Settings
-        </a>
-        <a class="list-group-item list-group-item-action bg-primary text-light" href="#performance-monitoring">
-            <i class="bi bi-speedometer2"></i> Performance Monitoring
-        </a>
-        <a class="list-group-item list-group-item-action bg-success text-light" href="#index-fragmentation">
-            <i class="bi bi-file-bar-graph-fill"></i> Index and Fragmentation
-        </a>
-        <a class="list-group-item list-group-item-action bg-info text-light" href="#historical-data">
-            <i class="bi bi-clock-history"></i> Historical Data
-        </a>
-        <a class="list-group-item list-group-item-action bg-warning text-light" href="#alerts-notifications">
-            <i class="bi bi-bell-fill"></i> Alerts and Notifications
-        </a>
-        <a class="list-group-item list-group-item-action bg-danger text-light" href="#reports">
-            <i class="bi bi-file-earmark-bar-graph-fill"></i> Reports
-        </a>
-        <a class="list-group-item list-group-item-action bg-secondary text-light" href="#maintenance-tasks">
-            <i class="bi bi-tools"></i> Maintenance Tasks
-        </a>
-        <a class="list-group-item list-group-item-action bg-dark text-light" href="#security-compliance">
-            <i class="bi bi-shield-lock-fill"></i> Security and Compliance
-        </a>
-        <a class="list-group-item list-group-item-action bg-primary text-light" href="#automation-scheduling">
-            <i class="bi bi-calendar-check-fill"></i> Automation and Scheduling
-        </a>
-        <a class="list-group-item list-group-item-action bg-danger text-light" href="{{ url_for('main.logout') }}">
-            <i class="bi bi-box-arrow-right"></i> Logout
-        </a>
-    </div>
+  <h3 class="text-center text-light mb-4">Menu</h3>
+  <div class="list-group sidebar-content">
+      <a class="list-group-item list-group-item-action bg-primary text-light" href="{{ url_for('main.dashboard') }}">
+          <i class="bi bi-house-door-fill"></i> Dashboard
+      </a>
+      <a class="list-group-item list-group-item-action bg-success text-light" href="{{ url_for('main.database_status') }}">
+          <i class="bi bi-database-fill"></i> Database Status
+      </a>
+      <a class="list-group-item list-group-item-action bg-info text-light" href="{{ url_for('main.disk_space_monitoring') }}">
+          <i class="bi bi-hdd-fill"></i> Disk Space Monitoring
+      </a>
+      <a class="list-group-item list-group-item-action bg-warning text-light" href="{{ url_for('main.backup_status') }}">
+          <i class="bi bi-save-fill"></i> Backup Status
+      </a>
+      <a class="list-group-item list-group-item-action bg-danger text-light" href="{{ url_for('main.sql_server_services') }}">
+          <i class="bi bi-server"></i> SQL Server Services
+      </a>
+      <a class="list-group-item list-group-item-action bg-secondary text-light" href="{{ url_for('main.error_logs') }}">
+          <i class="bi bi-file-earmark-x-fill"></i> Error Logs
+      </a>
+      <a class="list-group-item list-group-item-action bg-dark text-light" href="{{ url_for('main.configuration_settings') }}">
+          <i class="bi bi-gear-fill"></i> Configuration Settings
+      </a>
+      <a class="list-group-item list-group-item-action bg-primary text-light" href="{{ url_for('main.performance_monitoring') }}">
+          <i class="bi bi-speedometer2"></i> Performance Monitoring
+      </a>
+      <a class="list-group-item list-group-item-action bg-success text-light" href="{{ url_for('main.index_fragmentation') }}">
+          <i class="bi bi-file-bar-graph-fill"></i> Index and Fragmentation
+      </a>
+      <a class="list-group-item list-group-item-action bg-info text-light" href="{{ url_for('main.historical_data') }}">
+          <i class="bi bi-clock-history"></i> Historical Data
+      </a>
+      <a class="list-group-item list-group-item-action bg-warning text-light" href="{{ url_for('main.alerts_notifications') }}">
+          <i class="bi bi-bell-fill"></i> Alerts and Notifications
+      </a>
+      <a class="list-group-item list-group-item-action bg-danger text-light" href="{{ url_for('main.reports') }}">
+          <i class="bi bi-file-earmark-bar-graph-fill"></i> Reports
+      </a>
+      <a class="list-group-item list-group-item-action bg-secondary text-light" href="{{ url_for('main.maintenance_tasks') }}">
+          <i class="bi bi-tools"></i> Maintenance Tasks
+      </a>
+      <a class="list-group-item list-group-item-action bg-dark text-light" href="{{ url_for('main.security_compliance') }}">
+          <i class="bi bi-shield-lock-fill"></i> Security and Compliance
+      </a>
+      <a class="list-group-item list-group-item-action bg-primary text-light" href="{{ url_for('main.automation_scheduling') }}">
+          <i class="bi bi-calendar-check-fill"></i> Automation and Scheduling
+      </a>
+      <a class="list-group-item list-group-item-action bg-danger text-light" href="{{ url_for('main.logout') }}">
+          <i class="bi bi-box-arrow-right"></i> Logout
+      </a>
+  </div>
 </div>
 
 <style>
+.sidebar {
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  background-color: #343a40;
+  padding-top: 1rem;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+  overflow-y: auto;
+}
+
+.sidebar-content {
+  padding-bottom: 20px;
+}
+
+.sidebar a {
+  color: #fff;
+  padding: 15px 20px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.sidebar a:hover {
+  background-color: #495057;
+  transform: translateX(5px);
+}
+
+.sidebar a i {
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+.toggle-sidebar-btn {
+  display: none;
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background-color: #343a40;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 1000;
+  transition: left 0.3s ease-in-out;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.toggle-sidebar-btn i {
+  transition: transform 0.3s ease-in-out;
+}
+
+.sidebar.active {
+  left: -250px;
+}
+
+.main-content.expanded {
+  margin-left: 0;
+}
+
+@media (max-width: 768px) {
   .sidebar {
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 250px;
-    background-color: #343a40;
-    padding-top: 1rem;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    z-index: 999;
-    overflow-y: auto;
-  }
-
-  .sidebar-content {
-    padding-bottom: 20px;
-  }
-
-  .sidebar a {
-    color: #fff;
-    padding: 15px 20px;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    font-size: 1.1rem;
-    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
-    border-radius: 5px;
-    margin-bottom: 5px;
-  }
-
-  .sidebar a:hover {
-    background-color: #495057;
-    transform: translateX(5px);
-  }
-
-  .sidebar a i {
-    margin-right: 10px;
-    font-size: 1.2rem;
-  }
-
-  .toggle-sidebar-btn {
-    display: none;
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    background-color: #343a40;
-    color: #fff;
-    border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    z-index: 1000;
-    transition: left 0.3s ease-in-out;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-
-  .toggle-sidebar-btn i {
-    transition: transform 0.3s ease-in-out;
-  }
-
-  .sidebar.active {
     left: -250px;
   }
 
-  .main-content.expanded {
+  .sidebar.active {
+    left: 0;
+  }
+
+  .main-content {
     margin-left: 0;
+    padding-top: 10px;
   }
 
-  @media (max-width: 768px) {
-    .sidebar {
-      left: -250px;
-    }
-
-    .sidebar.active {
-      left: 0;
-    }
-
-    .main-content {
-      margin-left: 0;
-      padding-top: 10px;
-    }
-
-    .toggle-sidebar-btn {
-      display: flex;
-    }
+  .toggle-sidebar-btn {
+    display: flex;
   }
+}
 </style>

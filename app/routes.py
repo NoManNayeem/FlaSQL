@@ -89,17 +89,96 @@ def page_not_found(e):
 
 
 
+
+
+
+
+#-----------------DB Monitoring Views-----------------#
+
 from .utils.dbSummery import get_Server_Details
 
 @main.route('/dashboard')
 @login_required
 def dashboard():
-    # Fetch server metrics
-    server_metrics = get_Server_Details()
+    # # Fetch server metrics
+    # server_metrics = get_Server_Details()
     
-    print("----------------Server Metrics----------------")
-    print(server_metrics)
-    print("----------------Server Metrics----------------")
+    # print("----------------Server Metrics----------------")
+    # print(server_metrics)
+    # print("----------------Server Metrics----------------")
     
     # Pass the server metrics data to the template
-    return render_template('private/dashboard.html', server_metrics=server_metrics)
+    # return render_template('private/dashboard.html', server_metrics=server_metrics)
+    return render_template('private/dashboard.html')
+
+
+
+@main.route('/database-status')
+@login_required
+def database_status():
+    return render_template('private/database_status.html')
+
+@main.route('/disk-space-monitoring')
+@login_required
+def disk_space_monitoring():
+    return render_template('private/disk_space_monitoring.html')
+
+@main.route('/backup-status')
+@login_required
+def backup_status():
+    return render_template('private/backup_status.html')
+
+@main.route('/sql-server-services')
+@login_required
+def sql_server_services():
+    return render_template('private/sql_server_services.html')
+
+@main.route('/error-logs')
+@login_required
+def error_logs():
+    return render_template('private/error_logs.html')
+
+@main.route('/configuration-settings')
+@login_required
+def configuration_settings():
+    return render_template('private/configuration_settings.html')
+
+@main.route('/performance-monitoring')
+@login_required
+def performance_monitoring():
+    return render_template('private/performance_monitoring.html')
+
+@main.route('/index-fragmentation')
+@login_required
+def index_fragmentation():
+    return render_template('private/index_fragmentation.html')
+
+@main.route('/historical-data')
+@login_required
+def historical_data():
+    return render_template('private/historical_data.html')
+
+@main.route('/alerts-notifications')
+@login_required
+def alerts_notifications():
+    return render_template('private/alerts_notifications.html')
+
+@main.route('/reports')
+@login_required
+def reports():
+    return render_template('private/reports.html')
+
+@main.route('/maintenance-tasks')
+@login_required
+def maintenance_tasks():
+    return render_template('private/maintenance_tasks.html')
+
+@main.route('/security-compliance')
+@login_required
+def security_compliance():
+    return render_template('private/security_compliance.html')
+
+@main.route('/automation-scheduling')
+@login_required
+def automation_scheduling():
+    return render_template('private/automation_scheduling.html')

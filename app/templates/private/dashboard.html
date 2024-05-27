@@ -6,215 +6,48 @@ Dashboard
 
 {% block content %}
 <div class="container mt-3">
-    <div class="row mb-4">
-        <div class="col-12">
-            <h2 class="text-center text-primary">Dashboard</h2>
+    <div class="row">
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card text-white bg-primary">
+                <div class="card-body">
+                    <h5 class="card-title">Total Users</h5>
+                    <p class="card-text">123</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card text-white bg-success">
+                <div class="card-body">
+                    <h5 class="card-title">Active Sessions</h5>
+                    <p class="card-text">45</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card text-white bg-info">
+                <div class="card-body">
+                    <h5 class="card-title">Database Status</h5>
+                    <p class="card-text">Healthy</p>
+                </div>
+            </div>
         </div>
     </div>
     <div class="row">
-        <!-- Card for Active Databases -->
-        <div class="col-md-6 col-lg-3 mb-4">
-            <div class="card text-white bg-primary shadow-sm rounded-lg">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <i class="bi bi-server card-icon display-4 me-3"></i>
-                        <div>
-                            <h5 class="card-title">Active Databases</h5>
-                            <h3>{{ server_metrics['active_databases'] }}</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Card for Server Status -->
-        <div class="col-md-6 col-lg-3 mb-4">
-            <div class="card text-white bg-success shadow-sm rounded-lg">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <i class="bi bi-activity card-icon display-4 me-3"></i>
-                        <div>
-                            <h5 class="card-title">Server Status</h5>
-                            <h3>Online</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Card for Recent Alerts -->
-        <div class="col-md-6 col-lg-3 mb-4">
-            <div class="card text-white bg-warning shadow-sm rounded-lg">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <i class="bi bi-exclamation-triangle-fill card-icon display-4 me-3"></i>
-                        <div>
-                            <h5 class="card-title">Recent Alerts</h5>
-                            <h3>{{ server_metrics['recent_alerts'] }}</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Card for Performance -->
-        <div class="col-md-6 col-lg-3 mb-4">
-            <div class="card text-white bg-info shadow-sm rounded-lg">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <i class="bi bi-speedometer2 card-icon display-4 me-3"></i>
-                        <div>
-                            <h5 class="card-title">Performance</h5>
-                            <h3>{{ server_metrics['performance'] }}</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Server Information -->
-    <div class="row mb-4">
         <div class="col-12">
-            <div class="card shadow-sm rounded-lg">
-                <div class="card-header bg-dark text-white">
-                    Server Information
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Recent Activities</h5>
                 </div>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-4 mb-3">
-                            <h6>Server Name</h6>
-                            <p>{{ server_metrics['server_name'] }}</p>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <h6>IP Address</h6>
-                            <p>{{ server_metrics['ip_address'] }}</p>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <h6>Uptime</h6>
-                            <p>{{ server_metrics['uptime'] }}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4 mb-3">
-                            <h6>Version</h6>
-                            <p>{{ server_metrics['version'] }}</p>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <h6>Last Backup</h6>
-                            <p>{{ server_metrics['last_backup'] }}</p>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <h6>Next Maintenance</h6>
-                            <p>{{ server_metrics['next_maintenance'] }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Databases Table -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="card shadow-sm rounded-lg">
-                <div class="card-header bg-dark text-white">
-                    Databases
-                </div>
-                <div class="card-body">
-                    <table class="table table-hover table-striped">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th>Name</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for db in server_metrics['databases'] %}
-                            <tr>
-                                <td>{{ db['name'] }}</td>
-                                <td>{{ db['status'] }}</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Graphs and Charts -->
-    <div class="row">
-        <div class="col-md-6 mb-4">
-            <div class="card shadow-sm rounded-lg">
-                <div class="card-header bg-dark text-white">
-                    Server Load
-                </div>
-                <div class="card-body">
-                    <canvas id="serverLoadChart"></canvas>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 mb-4">
-            <div class="card shadow-sm rounded-lg">
-                <div class="card-header bg-dark text-white">
-                    Recent Queries
-                </div>
-                <div class="card-body">
-                    <canvas id="recentQueriesChart"></canvas>
+                    <ul class="list-group">
+                        <li class="list-group-item">User A logged in</li>
+                        <li class="list-group-item">Database backup completed</li>
+                        <li class="list-group-item">New user registered</li>
+                        <li class="list-group-item">System maintenance scheduled</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
 </div>
-{% endblock %}
-
-{% block script %}
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    // Replace the sample data with actual data fetched from server_metrics
-    const serverLoadData = {{ server_metrics['server_load'] | tojson }};
-    const recentQueriesData = {{ server_metrics['recent_queries'] | tojson }};
-
-    // Server Load Chart
-    const ctx1 = document.getElementById('serverLoadChart').getContext('2d');
-    const serverLoadChart = new Chart(ctx1, {
-        type: 'line',
-        data: {
-            labels: serverLoadData.map(d => new Date(d.time * 1000).toLocaleString()), // Assuming time is in seconds since epoch
-            datasets: [{
-                label: 'Server Load',
-                data: serverLoadData.map(d => d.cpu_usage),
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 1)',
-                borderWidth: 1
-            }]
-        }
-    });
-
-    // Recent Queries Chart
-    const ctx2 = document.getElementById('recentQueriesChart').getContext('2d');
-    const recentQueriesChart = new Chart(ctx2, {
-        type: 'bar',
-        data: {
-            labels: recentQueriesData.map(d => d.query_text.slice(0, 30) + '...'), // Display only first 30 chars
-            datasets: [{
-                label: 'Execution Time (ms)',
-                data: recentQueriesData.map(d => d.total_elapsed_time),
-                backgroundColor: 'rgba(255, 206, 86, 0.2)',
-                borderColor: 'rgba(255, 206, 86, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            plugins: {
-                tooltip: {
-                    callbacks: {
-                        title: function(tooltipItem) {
-                            return recentQueriesData[tooltipItem[0].dataIndex].query_text;
-                        }
-                    }
-                }
-            }
-        }
-    });
-</script>
 {% endblock %}
