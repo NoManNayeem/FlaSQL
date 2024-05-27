@@ -15,6 +15,9 @@ def index():
         return redirect(url_for('main.dashboard'))
     return render_template('public/landing.html')
 
+
+
+'''
 @main.route('/dashboard')
 @login_required
 def dashboard():
@@ -26,7 +29,7 @@ def dashboard():
     print("----------------Server Metrics----------------")
     # Pass the server metrics data to the template
     return render_template('private/dashboard.html', server_metrics=server_metrics)
-
+'''
 
 
 
@@ -83,3 +86,20 @@ def logout():
 def page_not_found(e):
     # Note that we set the 404 status explicitly
     return render_template('public/404.html'), 404
+
+
+
+from .utils.dbSummery import get_Server_Details
+
+@main.route('/dashboard')
+@login_required
+def dashboard():
+    # Fetch server metrics
+    server_metrics = get_Server_Details()
+    
+    print("----------------Server Metrics----------------")
+    print(server_metrics)
+    print("----------------Server Metrics----------------")
+    
+    # Pass the server metrics data to the template
+    return render_template('private/dashboard.html', server_metrics=server_metrics)
