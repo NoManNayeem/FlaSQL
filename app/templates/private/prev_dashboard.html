@@ -1,0 +1,108 @@
+{% extends "private/private_base.html" %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+{% block content %}
+<div class="container mt-3">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="card w-100 me-2">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <button class="btn btn-outline-info" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    <i class="bi bi-server"></i> {{ server_metrics.ServerName | default('Server Info') }}<i class="mx-2 bi bi-arrow-down-circle"></i>
+                </button>
+                <button class="btn btn-outline-primary" onclick="location.reload()">
+                    <i class="bi bi-arrow-clockwise"></i> Refresh
+                </button>
+            </div>
+            <div class="collapse" id="collapseExample">
+                <div class="card card-body">
+                    <table class="table table-bordered table-hover table-striped table-dark text-center">
+                        <tbody>
+                            <tr>
+                                <th><i class="bi bi-cpu"></i> Server Name</th>
+                                <td>{{ server_metrics.ServerName | default('N/A') }}</td>
+                            </tr>
+                            <tr>
+                                <th><i class="bi bi-gpu-card"></i> Edition</th>
+                                <td>{{ server_metrics.ServerEdition | default('N/A') }}</td>
+                            </tr>
+                            <tr>
+                                <th><i class="bi bi-file-earmark-text"></i> Version</th>
+                                <td>{{ server_metrics.ServerVersion | default('N/A') }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Disk Space Details -->
+        {% for disk in server_metrics.DiskSpace|default([]) %}
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <i class="bi bi-hdd-stack-fill"></i> {{ disk.DatabaseName | default('Unknown Database') }}
+                </div>
+                <div class="card-body">
+                    <h5><i class="bi bi-hdd"></i> Total: {{ disk.TotalSpaceMB | default('N/A') }} MB</h5>
+                    <h5><i class="bi bi-hdd-network"></i> Free: {{ disk.EmptySpaceMB | default('N/A') }} MB</h5>
+                    {% if disk.EmptySpaceMB is not none and disk.TotalSpaceMB is not none %}
+                    {% set used_percent = 100 - (disk.EmptySpaceMB / disk.TotalSpaceMB * 100) %}
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: {{ used_percent }}%" aria-valuenow="{{ used_percent }}" aria-valuemin="0" aria-valuemax="100">{{ used_percent|round|int }}%</div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="row">
+        <!-- Database Connections -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <button class="btn btn-outline-info w-100 text-start" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDbConnections" aria-expanded="false" aria-controls="collapseDbConnections">
+                        <i class="bi bi-people-fill"></i> Database Connections <i class="bi bi-arrow-down-circle mx-2"></i>
+                    </button>
+                </div>
+                <div class="collapse" id="collapseDbConnections">
+                    <div class="card-body">
+                        <ul class="list-group">
+                            {% for connection in server_metrics.DatabaseConnections|default([]) %}
+                            <li class="list-group-item">
+                                <i class="bi bi-database-fill"></i> {{ connection.DatabaseName | default('General') }}: {{ connection.NumberOfConnections | default('N/A') }} connections
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Network Traffic -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <i class="bi bi-graph-up"></i> Network Traffic 
+                </div>
+                <div class="card-body">
+                    <p><strong><i class="bi bi-cloud-download"></i> Reads:</strong> {{ server_metrics.NetworkTraffic.TotalReads | default('N/A') }} operations</p>
+                    <p><strong><i class="bi bi-cloud-upload"></i> Writes:</strong> {{ server_metrics.NetworkTraffic.TotalWrites | default('N/A') }} operations</p>
+                    {% if server_metrics.NetworkTraffic.TotalReads is not none and server_metrics.NetworkTraffic.TotalWrites is not none %}
+                    {% set total_operations = server_metrics.NetworkTraffic.TotalReads + server_metrics.NetworkTraffic.TotalWrites %}
+                    {% set reads_percent = (server_metrics.NetworkTraffic.TotalReads / total_operations * 100) %}
+                    <div class="progress">
+                        <div class="progress-bar bg-success" role="progressbar" style="width: {{ reads_percent|round|int }}%" aria-valuenow="{{ server_metrics.NetworkTraffic.TotalReads }}" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
