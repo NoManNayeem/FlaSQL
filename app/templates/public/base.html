@@ -67,17 +67,31 @@
         }
         .navbar {
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #343a40;
+            transition: background-color 0.3s, padding 0.3s;
         }
         .navbar-brand {
-            font-size: 1.5rem;
+            font-size: 1.75rem;
             font-weight: bold;
+            color: #ffffff;
+            transition: color 0.3s;
+        }
+        .navbar-brand:hover {
+            color: #007bff;
         }
         .nav-link {
             margin-right: 15px;
+            color: #ffffff;
             transition: color 0.3s;
         }
         .nav-link:hover {
             color: #007bff;
+        }
+        .navbar-toggler {
+            border: none;
+        }
+        .navbar-toggler-icon {
+            color: #ffffff;
         }
         .container {
             max-width: 1200px;
@@ -140,7 +154,7 @@
 </head>
 <body>
     <div id="wrapper">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
             <div class="container">
                 <a class="navbar-brand text-gradient" href="{{ url_for('main.index') }}"><i class="bi bi-database"></i> FlaSQL</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -149,13 +163,13 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-gradient hover:text-white" href="{{ url_for('main.about') }}"><i class="bi bi-info-circle"></i> About</a>
+                            <a class="nav-link text-gradient" href="{{ url_for('main.about') }}"><i class="bi bi-info-circle"></i> About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-gradient hover:text-white" href="{{ url_for('main.register') }}"><i class="bi bi-person-plus"></i> Register</a>
+                            <a class="nav-link text-gradient" href="{{ url_for('main.register') }}"><i class="bi bi-person-plus"></i> Register</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-gradient hover:text-white" href="{{ url_for('main.login') }}"><i class="bi bi-box-arrow-in-right"></i> Login</a>
+                            <a class="nav-link text-gradient" href="{{ url_for('main.login') }}"><i class="bi bi-box-arrow-in-right"></i> Login</a>
                         </li>
                     </ul>
                 </div>
