@@ -16,7 +16,6 @@
             padding: 0;
             font-family: 'Poppins', sans-serif;
             background-color: #f5f5f5;
-            
         }
         #wrapper {
             min-height: 100%;
@@ -95,14 +94,12 @@
             -webkit-text-fill-color: transparent;
             transition: background 0.3s, -webkit-text-fill-color 0.3s;
         }
-        
         .text-gradient:hover {
             background: linear-gradient(45deg, #34c1c3, #fdbb2d);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             transform: scale(1.20);
         }
-        
         .gradient-btn {
             background: linear-gradient(135deg, #f093fb, #f5576c);
             color: white;
@@ -114,14 +111,31 @@
             transition: background 0.3s, transform 0.3s;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-        
         .gradient-btn:hover {
             background: linear-gradient(135deg, #f5576c, #f093fb);
             transform: scale(1.05);
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
-        
-        
+        .alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1050;
+            min-width: 300px;
+            display: flex;
+            align-items: center;
+            animation: slideIn 0.5s ease;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
     </style>
 </head>
 <body>
@@ -149,6 +163,21 @@
         </nav>
 
         <div id="content-wrap">
+            <div class="container">
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        <div>
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                    <i class="bi bi-{{ 'check-circle' if category == 'success' else 'exclamation-triangle' if category == 'warning' else 'info-circle' if category == 'info' else 'x-circle' }}"></i> 
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+            </div>
             {% block content %}
             <!-- Content will go here -->
             {% endblock %}
