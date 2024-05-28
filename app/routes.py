@@ -186,6 +186,7 @@ def dashboard():
     # If there is an active connection, fetch the details
     db_details = connect_to_db()
     if db_details:
+        flash('Server is Up and Running!.', 'success')
         return render_template('private/dashboard.html', db_details=db_details)
     else:
         flash('Unable to connect to the database with the active connection.', 'danger')
