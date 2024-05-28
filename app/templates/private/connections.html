@@ -1,0 +1,179 @@
+{% extends "private/private_base.html" %}
+
+{% block title %}
+SQL Server Services
+{% endblock %}
+
+{% block content %}
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="card-title">SQL Server Services</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Manage your SQL Server connections below.</p>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#createModal">Add New Connection</button>
+                    <table class="table table-striped mt-3">
+                        <thead>
+                            <tr>
+                                <th>Server</th>
+                                <th>Database</th>
+                                <th>Driver</th>
+                                <th>Active</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for connection in connections %}
+                            <tr>
+                                <td>{{ connection.server }}</td>
+                                <td>{{ connection.database }}</td>
+                                <td>{{ connection.driver }}</td>
+                                <td>{{ connection.active }}</td>
+                                <td>
+                                    <button class="btn btn-warning btn-sm" onclick="editConnection({{ connection.id }})" data-toggle="modal" data-target="#editModal">Edit</button>
+                                    <form action="{{ url_for('main.delete', id=connection.id) }}" method="POST" style="display:inline;">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Create Modal -->
+<div class="modal fade" id="createModal" tabindex="-1" role="dialog" aria-labelledby="createModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form method="POST" action="{{ url_for('main.connections') }}">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createModalLabel">Create MSSQL Connection</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <input type="hidden" name="form_type" value="create">
+                    <div class="form-group">
+                        <label for="server">Server</label>
+                        <input type="text" name="server" class="form-control" value='NAYEEMISLAM'>
+                    </div>
+                    <div class="form-group">
+                        <label for="database">Database</label>
+                        <input type="text" name="database" class="form-control" value='master'>
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" name="username" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="driver">Driver</label>
+                        <input type="text" name="driver" class="form-control" value="ODBC Driver 17 for SQL Server" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="trusted_connection">Trusted Connection</label>
+                        <select name="trusted_connection" class="form-control" required>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="active">Active</label>
+                        <input type="checkbox" name="active">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form method="POST" action="{{ url_for('main.connections') }}">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit MSSQL Connection</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <input type="hidden" name="form_type" value="edit">
+                    <input type="hidden" name="id" id="edit-id">
+                    <div class="form-group">
+                        <label for="edit-server">Server</label>
+                        <input type="text" name="server" id="edit-server" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-database">Database</label>
+                        <input type="text" name="database" id="edit-database" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-username">Username</label>
+                        <input type="text" name="username" id="edit-username" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-password">Password</label>
+                        <input type="password" name="password" id="edit-password" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-driver">Driver</label>
+                        <input type="text" name="driver" id="edit-driver" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-trusted_connection">Trusted Connection</label>
+                        <select name="trusted_connection" id="edit-trusted_connection" class="form-control" required>
+                            <option value="yes">Yes</option>
+                            <option value="no">No</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-active">Active</label>
+                        <input type="checkbox" name="active" id="edit-active">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function editConnection(id) {
+        fetch(`/get_connection/${id}`)
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('edit-id').value = data.id;
+                document.getElementById('edit-server').value = data.server;
+                document.getElementById('edit-database').value = data.database;
+                document.getElementById('edit-username').value = data.username;
+                document.getElementById('edit-password').value = data.password;
+                document.getElementById('edit-driver').value = data.driver;
+                document.getElementById('edit-trusted_connection').value = data.trusted_connection;
+                document.getElementById('edit-active').checked = data.active;
+            });
+    }
+</script>
+{% endblock %}

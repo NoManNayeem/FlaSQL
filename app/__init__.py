@@ -14,7 +14,6 @@ login_manager = LoginManager()
 # Initialize Bcrypt for password hashing
 bcrypt = Bcrypt()
 
-# Function to create and configure the Flask app
 def create_app() -> Flask:
     app = Flask(__name__)
 
@@ -42,5 +41,8 @@ def create_app() -> Flask:
     def load_user(user_id: str):
         from .models import User  # Local import to avoid circular dependencies
         return User.query.get(int(user_id))
+
+    with app.app_context():
+        db.create_all()
 
     return app

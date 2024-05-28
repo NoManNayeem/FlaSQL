@@ -6,48 +6,153 @@ Dashboard
 
 {% block content %}
 <div class="container mt-3">
-    <div class="row">
+    <div class="row text-center">
         <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card text-white bg-primary">
+            <div class="card bg-primary text-white h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Server Name</h5>
+                    <button class="btn btn-light btn-sm mt-2" data-bs-toggle="collapse" data-bs-target="#serverDetails">
+                        <i class="fas fa-info-circle"></i> Show Details
+                    </button>
+                    <div id="serverDetails" class="collapse mt-2">
+                        <table class="table table-sm table-dark">
+                            <tbody>
+                                <tr>
+                                    <td>Server Name:</td>
+                                    <td>{{ db_details.server_name if db_details else 'N/A' }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Server IP:</td>
+                                    <td>{{ db_details.server_ip if db_details else 'N/A' }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card bg-success text-white h-100">
+                <div class="card-body">
+                    <h5 class="card-title">SQL Server Version</h5>
+                    <button class="btn btn-light btn-sm mt-2" data-bs-toggle="collapse" data-bs-target="#versionDetails">
+                        <i class="fas fa-info-circle"></i> Show Details
+                    </button>
+                    <div id="versionDetails" class="collapse mt-2">
+                        <table class="table table-sm table-dark">
+                            <tbody>
+                                <tr>
+                                    <td>Version:</td>
+                                    <td>{{ db_details.version if db_details else 'N/A' }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card bg-info text-white h-100">
                 <div class="card-body">
                     <h5 class="card-title">Total Users</h5>
-                    <p class="card-text">123</p>
+                    <button class="btn btn-light btn-sm mt-2" data-bs-toggle="collapse" data-bs-target="#userDetails">
+                        <i class="fas fa-info-circle"></i> Show Details
+                    </button>
+                    <div id="userDetails" class="collapse mt-2">
+                        <table class="table table-sm table-dark">
+                            <tbody>
+                                <tr>
+                                    <td>Total Users:</td>
+                                    <td>{{ db_details.users_count if db_details else 'N/A' }}</td>
+                                </tr>
+                                <tr>
+                                    <td>List of Users:</td>
+                                    <td>{{ db_details.user_list if db_details else 'N/A' }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card text-white bg-success">
+            <div class="card bg-warning text-white h-100">
                 <div class="card-body">
-                    <h5 class="card-title">Active Sessions</h5>
-                    <p class="card-text">45</p>
+                    <h5 class="card-title">Total Databases</h5>
+                    <button class="btn btn-light btn-sm mt-2" data-bs-toggle="collapse" data-bs-target="#databaseDetails">
+                        <i class="fas fa-info-circle"></i> Show Details
+                    </button>
+                    <div id="databaseDetails" class="collapse mt-2">
+                        <table class="table table-sm table-dark">
+                            <tbody>
+                                <tr>
+                                    <td>Total Databases:</td>
+                                    <td>{{ db_details.databases_count if db_details else 'N/A' }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Database Names:</td>
+                                    <td>{{ db_details.database_list if db_details else 'N/A' }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card text-white bg-info">
+            <div class="card bg-danger text-white h-100">
                 <div class="card-body">
-                    <h5 class="card-title">Database Status</h5>
-                    <p class="card-text">Healthy</p>
+                    <h5 class="card-title">Active Connections</h5>
+                    <button class="btn btn-light btn-sm mt-2" data-bs-toggle="collapse" data-bs-target="#connectionDetails">
+                        <i class="fas fa-info-circle"></i> Show Details
+                    </button>
+                    <div id="connectionDetails" class="collapse mt-2">
+                        <table class="table table-sm table-dark">
+                            <tbody>
+                                <tr>
+                                    <td>Active Connections:</td>
+                                    <td>{{ db_details.connections_count if db_details else 'N/A' }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Connection Details:</td>
+                                    <td>{{ db_details.connection_list if db_details else 'N/A' }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-12">
-            <div class="card">
-                <div class="card-header">
+            <div class="card mb-4">
+                <div class="card-header bg-dark text-white">
                     <h5 class="card-title">Recent Activities</h5>
+                    <button class="btn btn-light btn-sm mt-2" data-bs-toggle="collapse" data-bs-target="#activitiesDetails">
+                        <i class="fas fa-info-circle"></i> Show/Hide
+                    </button>
                 </div>
-                <div class="card-body">
-                    <ul class="list-group">
-                        <li class="list-group-item">User A logged in</li>
-                        <li class="list-group-item">Database backup completed</li>
-                        <li class="list-group-item">New user registered</li>
-                        <li class="list-group-item">System maintenance scheduled</li>
+                <div id="activitiesDetails" class="collapse card-body">
+                    <ul class="list-group list-group-flush">
+                        {% if db_details.recent_activities %}
+                            {% for activity in db_details.recent_activities %}
+                                <li class="list-group-item">
+                                    <strong>{{ activity.event_time }}:</strong> {{ activity.event_type }} - {{ activity.details }}
+                                </li>
+                            {% endfor %}
+                        {% else %}
+                            <li class="list-group-item">No recent activities found</li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
         </div>
     </div>
+    {% if error %}
+        <div class="alert alert-danger mt-3" role="alert">
+            {{ error }}
+        </div>
+    {% endif %}
 </div>
 {% endblock %}
