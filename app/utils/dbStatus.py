@@ -27,8 +27,9 @@ def connect_to_db():
                 server_name = conn.execute(text("SELECT @@servername")).fetchone()[0]
                 version = conn.execute(text("SELECT @@version")).fetchone()[0]
 
-                # Get server IP address
-                server_ip = socket.gethostbyname(server_name)
+                # # Get server IP address
+                # server_ip = socket.gethostbyname(server_name)
+                server_ip = "127.0.0.0"
 
                 # Get number of users
                 users_count = conn.execute(text("SELECT COUNT(*) FROM sys.syslogins")).fetchone()[0]
